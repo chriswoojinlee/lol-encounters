@@ -19,11 +19,21 @@ public class PlayerTest {
 
     @Test
     void testGetWins() {
-        assertEquals(62, player.getWins());
+        assertEquals(63, player.getWins());
     }
 
     @Test
     void testGetLosses() {
         assertEquals(38, player.getLosses());
+    }
+
+    @Test
+    void testGetCurrentRank() {
+        assertEquals("DIAMONDI53", player.getCurrentRank());
+    }
+
+    @Test
+    void testGetWinRate() {
+        assertEquals("62.3%", player.getWinRate());
     }
 }
