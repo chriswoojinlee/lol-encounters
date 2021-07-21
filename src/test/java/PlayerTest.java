@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlayerTest {
     Summoner summoner;
@@ -14,14 +15,14 @@ public class PlayerTest {
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey(""); // should be blank API key before committing
+        Orianna.setRiotAPIKey(""); // must be blank API key before committing
         summoner = Summoner.named("LeeWooJin").withRegion(Region.NORTH_AMERICA).get();
         player = new Player(summoner);
     }
 
     @Test
     void testGetWins() {
-        assertEquals(63, player.getWins());
+        assertEquals(64, player.getWins());
     }
 
     @Test
@@ -31,19 +32,16 @@ public class PlayerTest {
 
     @Test
     void testGetCurrentRank() {
-        assertEquals("DIAMONDI53", player.getCurrentRank());
+        assertEquals("DIAMONDI72", player.getCurrentRank());
     }
 
     @Test
     void testGetWinRate() {
-        assertEquals("62.3%", player.getWinRate());
+        assertEquals("62.7%", player.getWinRate());
     }
 
     @Test
-    void testGetPreviousRanks() {
-        ArrayList<String> ranks = new ArrayList<>();
-        ranks.add(0, "MASTER");
-        ranks.add(1, "PLATINUM");
-        assertEquals(ranks, player.getPreviousRanks());
+    void testGetWinStreak() {
+        assertTrue(player.getWinStreak(summoner));
     }
 }
