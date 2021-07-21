@@ -4,6 +4,8 @@ import com.merakianalytics.orianna.types.core.summoner.Summoner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayerTest {
@@ -35,5 +37,13 @@ public class PlayerTest {
     @Test
     void testGetWinRate() {
         assertEquals("62.3%", player.getWinRate());
+    }
+
+    @Test
+    void testGetPreviousRanks() {
+        ArrayList<String> ranks = new ArrayList<>();
+        ranks.add(0, "MASTER");
+        ranks.add(1, "PLATINUM");
+        assertEquals(ranks, player.getPreviousRanks());
     }
 }

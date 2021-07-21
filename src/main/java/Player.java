@@ -1,4 +1,7 @@
 import com.merakianalytics.orianna.types.common.Queue;
+import com.merakianalytics.orianna.types.common.Region;
+import com.merakianalytics.orianna.types.common.Season;
+import com.merakianalytics.orianna.types.common.Tier;
 import com.merakianalytics.orianna.types.core.league.League;
 import com.merakianalytics.orianna.types.core.summoner.Summoner;
 
@@ -15,7 +18,7 @@ public class Player {
     private String currentDivision;            // player's current division within a tier
     private int currentLP;                     // player's current amount of LP
     private String currentRank;                // player's current rank (current tier, division, and LP)
-    private ArrayList<String> previousRanks;   // player's ranks in previous seasons (if applicable)
+    private String previousRanks;   // player's ranks in previous seasons (if applicable)
 
     public Player(Summoner summoner) {
         this.league = summoner.getLeague(Queue.RANKED_SOLO);
@@ -26,6 +29,7 @@ public class Player {
         this.currentDivision = league.get(getPlayerLeagueNum(name, league)).getDivision().toString();
         this.currentLP = league.get(getPlayerLeagueNum(name, league)).getLeaguePoints();
         this.currentRank = getCurrentTier() + getCurrentDivision() + getCurrentLP();
+        this.previousRanks = getPreviousRanks();
     }
 
     public String getName() {
@@ -69,5 +73,11 @@ public class Player {
 
     public String getCurrentRank() {
         return currentRank;
+    }
+
+    // TODO
+    public String getPreviousRanks() {
+        ArrayList<String> ranks = new ArrayList<>();
+        return "";
     }
 }
