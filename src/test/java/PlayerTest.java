@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
     Summoner summoner;
@@ -15,33 +14,54 @@ public class PlayerTest {
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey(""); // must be blank API key before committing
+        Orianna.setRiotAPIKey("RGAPI-d1022d42-ce8a-497e-8921-5ac1366bc39a"); // must be blank API key before committing
         summoner = Summoner.named("LeeWooJin").withRegion(Region.NORTH_AMERICA).get();
         player = new Player(summoner);
     }
 
     @Test
     void testGetWins() {
-        assertEquals(64, player.getWins());
+        assertEquals(68, player.getWins());
     }
 
     @Test
     void testGetLosses() {
-        assertEquals(38, player.getLosses());
+        assertEquals(42, player.getLosses());
     }
 
     @Test
     void testGetCurrentRank() {
-        assertEquals("DIAMONDI72", player.getCurrentRank());
+        assertEquals("DIAMONDI76", player.getCurrentRank());
     }
 
     @Test
     void testGetWinRate() {
-        assertEquals("62.7%", player.getWinRate());
+        assertEquals("61.8%", player.getWinRate());
     }
 
     @Test
     void testGetWinStreak() {
-        assertTrue(player.getWinStreak(summoner));
+        assertFalse(player.getWinStreak(summoner));
+    }
+
+    @Test
+    void testGetLossStreak() {
+        assertFalse(player.getLossStreak(summoner));
+    }
+
+    @Test
+    void testGetLastTenGames() {
+        ArrayList<String> matches = new ArrayList<>();
+        matches.add("W");
+        for(int i = 0; i < 3; i++) {
+            matches.add("L");
+        }
+        matches.add("W");
+        matches.add("L");
+        for(int i = 0; i < 4; i++) {
+            matches.add("W");
+        }
+
+        assertEquals(matches, player.getLastTenGameOutcomes(summoner));
     }
 }
