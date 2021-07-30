@@ -21,7 +21,7 @@ public class PlayerTest {
 
     @Test
     void testGetWins() {
-        assertEquals(68, player.getWins());
+        assertEquals(69, player.getWins());
     }
 
     @Test
@@ -31,17 +31,17 @@ public class PlayerTest {
 
     @Test
     void testGetCurrentRank() {
-        assertEquals("DIAMONDI76", player.getCurrentRank());
+        assertEquals("DIAMONDI94", player.getCurrentRank());
     }
 
     @Test
     void testGetWinRate() {
-        assertEquals("61.8%", player.getWinRate());
+        assertEquals("62.1%", player.getWinRate());
     }
 
     @Test
     void testGetWinStreak() {
-        assertFalse(player.getWinStreak(summoner));
+        assertTrue(player.getWinStreak(summoner));
     }
 
     @Test
