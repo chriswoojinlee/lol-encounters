@@ -1,7 +1,9 @@
 import com.merakianalytics.orianna.types.common.Queue;
 import com.merakianalytics.orianna.types.common.Season;
 import com.merakianalytics.orianna.types.core.league.League;
+import com.merakianalytics.orianna.types.core.league.LeaguePositions;
 import com.merakianalytics.orianna.types.core.match.Match;
+import com.merakianalytics.orianna.types.core.match.Participant;
 import com.merakianalytics.orianna.types.core.summoner.Summoner;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Player {
     private final String name;                 // summoner name
     private final int wins;                    // number of games that player has won in ranked solo/duo queue
     private final int losses;                  // number of games that player has lost in ranked solo/duo queue
+    private int numGames;                      // number of games that player has played in ranked solo/duo queue
     private final String currentTier;          // player's current tier
     private final String currentDivision;      // player's current division within a tier
     private final int currentLP;               // player's current amount of LP
@@ -21,7 +24,6 @@ public class Player {
     private ArrayList<String> matchOutcomes;   // outcomes of player's last 10 matches
     private boolean hasWinStreak;              // whether or not player is on a win streak (2+ consecutive wins)
     private boolean hasLossStreak;             // whether or not player is on a loss streak (2+ consecutive losses)
-    private boolean isAutofilled;              // whether or not player is autofilled (not on primary or secondary role)
 
     public Player(Summoner summoner) {
         this.league = summoner.getLeague(Queue.RANKED_SOLO);
@@ -48,6 +50,10 @@ public class Player {
         return losses;
     }
 
+    public int getNumGames() {
+        return getWins() + getLosses();
+    }
+
     public int getPlayerLeagueNum(String name, League league) {
         for(int i = 0; i < 100; i++) {
             if(league.get(i).getSummoner().getName().equals(name)) {
@@ -60,7 +66,7 @@ public class Player {
 
     // returns ranked solo/duo queue win rate % (% of games won out of total games)
     public String getWinRate() {
-        return String.valueOf(Math.floor((double) getWins()/(getWins()+getLosses()) * 1000)/10) + "%";
+        return String.valueOf(Math.floor((double) getWins()/(getNumGames()) * 1000)/10) + "%";
     }
 
     public String getCurrentTier() {
@@ -99,7 +105,6 @@ public class Player {
         return hasWinStreak;
     }
 
-    // TODO
     public boolean getLossStreak(Summoner summoner) {
         int lossStreakCounter = 0;
 
@@ -138,7 +143,39 @@ public class Player {
     }
 
     // TODO
-    public boolean getAutofilled() {
-        return false;
+    public ArrayList<String> getLanes(Summoner summoner) {
+        ArrayList<String> lanes = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            Match match = summoner.matchHistory().withQueues(Queue.RANKED_SOLO).withSeasons(currentSeason).get().get(i);
+
+            for(int j = 0; j < 10; j++) {
+                if(match.getParticipants().get(j).getSummoner().equals(summoner)) {
+                    lanes.add(match.getParticipants().get(j).getLane().toString());
+                }
+            }
+        }
+
+        return lanes;
+    }
+
+    // TODO
+    public ArrayList<String> getRoles(Summoner summoner) {
+        ArrayList<String> roles = new ArrayList<>();
+
+        for (int i = 0; i < getNumGames(); i++) {
+            Match match = summoner.matchHistory().withQueues(Queue.RANKED_SOLO).withSeasons(currentSeason).get().get(i);
+            int summonerId = 0;
+
+            for(int j = 0; j < 10; j++) {
+                if(match.getParticipants().get(j).getSummoner().equals(summoner)) {
+                    summonerId = j;
+                }
+            }
+
+            roles.add(match.getParticipants().get(summonerId).getRole().toString());
+        }
+
+        return roles;
     }
 }

@@ -14,7 +14,7 @@ public class PlayerTest {
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey("RGAPI-d1022d42-ce8a-497e-8921-5ac1366bc39a"); // must be blank API key before committing
+        Orianna.setRiotAPIKey(""); // must be blank API key before committing
         summoner = Summoner.named("LeeWooJin").withRegion(Region.NORTH_AMERICA).get();
         player = new Player(summoner);
     }
@@ -63,5 +63,25 @@ public class PlayerTest {
         }
 
         assertEquals(matches, player.getLastTenGameOutcomes(summoner));
+    }
+
+    @Test
+    void testGetLanes() {
+        ArrayList<String> lanes = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            lanes.add("JUNGLE");
+        }
+
+        assertEquals(lanes, player.getLanes(summoner));
+    }
+
+    @Test
+    void testGetRoles() {
+        ArrayList<String> roles = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            roles.add("JUNGLE");
+        }
+
+        assertEquals(roles, player.getRoles(summoner));
     }
 }
