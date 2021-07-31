@@ -3,10 +3,12 @@ import com.merakianalytics.orianna.types.common.Season;
 import com.merakianalytics.orianna.types.core.league.League;
 import com.merakianalytics.orianna.types.core.league.LeaguePositions;
 import com.merakianalytics.orianna.types.core.match.Match;
+import com.merakianalytics.orianna.types.core.match.MatchHistory;
 import com.merakianalytics.orianna.types.core.match.Participant;
 import com.merakianalytics.orianna.types.core.summoner.Summoner;
+import org.cache2k.core.Entry;
 
-import java.util.ArrayList;
+import java.util.*;
 
 // Represents a player and his/her stats
 public class Player {
@@ -15,43 +17,22 @@ public class Player {
 
     private final Summoner summoner;                // player's summoner datapoint
     private final League league;                    // player's current ranked solo/duo queue league
-    private final String name;                      // summoner name
-    private final int wins;                         // number of games that player has won in ranked solo/duo queue
-    private final int losses;                       // number of games that player has lost in ranked solo/duo queue
-    private int numGames;                           // number of games that player has played in ranked solo/duo queue
-    private final String currentTier;               // player's current tier
-    private final String currentDivision;           // player's current division within a tier
-    private final int currentLP;                    // player's current amount of LP
-    private final String currentRank;               // player's current rank (current tier, division, and LP)
-    private final ArrayList<String> matchOutcomes;  // outcomes of player's last 10 matches
-    private boolean hasWinStreak;                   // whether or not player is on a win streak (2+ consecutive wins)
-    private boolean hasLossStreak;                  // whether or not player is on a loss streak (2+ consecutive losses)
 
     public Player(Summoner summoner) {
         this.summoner = summoner;
         this.league = summoner.getLeague(Queue.RANKED_SOLO);
-        this.name = summoner.getName();
-        this.wins = league.get(getPlayerLeagueNum()).getWins();
-        this.losses = league.get(getPlayerLeagueNum()).getLosses();
-        this.numGames = wins + losses;
-        this.currentTier = league.getTier().toString();
-        this.currentDivision = league.get(getPlayerLeagueNum()).getDivision().toString();
-        this.currentLP = league.get(getPlayerLeagueNum()).getLeaguePoints();
-        this.currentRank = getCurrentTier() + getCurrentDivision() + getCurrentLP();
-        this.matchOutcomes = getLastTenGameOutcomes();
-        this.hasWinStreak = getWinStreak();
     }
 
     public String getName() {
-        return name;
+        return summoner.getName();
     }
 
     public int getWins() {
-        return wins;
+        return league.get(getPlayerLeagueNum()).getWins();
     }
 
     public int getLosses() {
-        return losses;
+        return league.get(getPlayerLeagueNum()).getLosses();
     }
 
     public int getNumGames() {
@@ -60,7 +41,7 @@ public class Player {
 
     public int getPlayerLeagueNum() {
         for(int i = 0; i < 100; i++) {
-            if(league.get(i).getSummoner().getName().equals(name)) {
+            if(league.get(i).getSummoner().getName().equals(summoner.getName())) {
                 return i;
             }
         }
@@ -74,26 +55,28 @@ public class Player {
     }
 
     public String getCurrentTier() {
-        return currentTier;
+        return league.getTier().toString();
     }
 
     public String getCurrentDivision() {
-        return currentDivision;
+        return league.get(getPlayerLeagueNum()).getDivision().toString();
     }
 
     public String getCurrentLP() {
-        return String.valueOf(currentLP);
+        return String.valueOf(league.get(getPlayerLeagueNum()).getLeaguePoints());
     }
 
     public String getCurrentRank() {
-        return currentRank;
+        return getCurrentTier() + getCurrentDivision() + getCurrentLP();
     }
 
     public boolean getWinStreak() {
+        boolean hasWinStreak;
         int winStreakCounter = 0;
+        ArrayList<String> gameOutcomes = getLastTenGameOutcomes();
 
         for(int i = 9; i >= 0; i--) {
-           if(matchOutcomes.get(i).equals("W")) {
+           if(gameOutcomes.get(i).equals("W")) {
                winStreakCounter++;
            } else {
                winStreakCounter = 0;
@@ -110,10 +93,12 @@ public class Player {
     }
 
     public boolean getLossStreak() {
+        boolean hasLossStreak;
         int lossStreakCounter = 0;
+        ArrayList<String> gameOutcomes = getLastTenGameOutcomes();
 
         for(int i = 9; i >= 0; i--) {
-            if(matchOutcomes.get(i).equals("L")) {
+            if(gameOutcomes.get(i).equals("L")) {
                 lossStreakCounter++;
             } else {
                 lossStreakCounter = 0;
@@ -131,9 +116,11 @@ public class Player {
 
     public ArrayList<String> getLastTenGameOutcomes() {
         ArrayList<String> matches = new ArrayList<>();
+        MatchHistory matchHistory = summoner.matchHistory().withQueues(Queue.RANKED_SOLO).withSeasons(currentSeason).
+                get();
 
         for (int i = 0; i < 10; i++) {
-            Match match = summoner.matchHistory().withQueues(Queue.RANKED_SOLO).withSeasons(currentSeason).get().get(i);
+            Match match = matchHistory.get(i);
 
             if ((match.getBlueTeam().isWinner() && match.getBlueTeam().getParticipants().contains(summoner))
                     || match.getRedTeam().isWinner() && match.getRedTeam().getParticipants().contains(summoner)) {
@@ -146,9 +133,49 @@ public class Player {
         return matches;
     }
 
-    // TODO
     public String getPreferredPosition() {
-        return "";
+        ArrayList<String> positions = getFilteredPositions(getCombinedPositions());
+        int topCounter = 0;
+        int jgCounter = 0;
+        int midCounter = 0;
+        int adCounter = 0;
+        int supCounter = 0;
+        Map<String, Integer> posMap = new HashMap<>();
+
+        for(int i = 0; i < positions.size(); i++) {
+            switch (positions.get(i)) {
+                case "TOP":
+                    topCounter++;
+                    break;
+                case "JUNGLE":
+                    jgCounter++;
+                    break;
+                case "MIDDLE":
+                    midCounter++;
+                    break;
+                case "ADC":
+                    adCounter++;
+                    break;
+                case "SUPPORT":
+                    supCounter++;
+                    break;
+            }
+        }
+
+        posMap.put("TOP", topCounter);
+        posMap.put("JUNGLE", jgCounter);
+        posMap.put("MID", midCounter);
+        posMap.put("ADC", adCounter);
+        posMap.put("SUPPORT", supCounter);
+
+        Map.Entry<String, Integer> max = null;
+
+        for (Map.Entry<String, Integer> e : posMap.entrySet()) {
+            if (max == null || e.getValue() > max.getValue())
+                max = e;
+        }
+
+        return max.getKey();
     }
 
     public ArrayList<String> getFilteredPositions(ArrayList<String> positions) {
@@ -165,11 +192,19 @@ public class Player {
             }
         }
 
+        for(int i = 0; i < positions.size(); i++) {
+            if(positions.get(i).equals("DUO_CARRY")) {
+                positions.set(i, "ADC");
+            }
+        }
+
         return positions;
     }
 
-    public ArrayList<String> getCombinedPositions(ArrayList<String> lanes, ArrayList<String> roles) {
+    public ArrayList<String> getCombinedPositions() {
         ArrayList<String> positions = new ArrayList<>();
+        ArrayList<String> lanes = getLanes();
+        ArrayList<String> roles = getRoles();
 
         for(int i = 0; i < matchHistoryLength; i++) {
             positions.add(lanes.get(i));

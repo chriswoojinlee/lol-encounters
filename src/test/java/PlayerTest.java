@@ -92,6 +92,11 @@ public class PlayerTest {
     }
 
     @Test
+    void testGetPreferredPosition() {
+        assertEquals("JUNGLE", player2.getPreferredPosition());
+    }
+
+    @Test
     void testGetLanes() {
         ArrayList<String> lanes = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
@@ -120,19 +125,18 @@ public class PlayerTest {
     }
 
     @Test
-    void testFilterPositions() {
+    void testGetFilteredPositions() {
         ArrayList<String> positions = new ArrayList<>();
         for(int i = 0; i < 9; i++) {
             positions.add("JUNGLE");
         }
         positions.add("SUPPORT");
 
-        assertEquals(positions, player2.getFilteredPositions(player2.getCombinedPositions(player2.getLanes(),
-                player2.getRoles())));
+        assertEquals(positions, player2.getFilteredPositions(player2.getCombinedPositions()));
     }
 
     @Test
-    void testCombinePositions() {
+    void testGetCombinedPositions() {
         ArrayList<String> positions = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             positions.add("JUNGLE");
@@ -149,6 +153,6 @@ public class PlayerTest {
             positions.add("NONE");
         }
 
-        assertEquals(positions, player2.getCombinedPositions(player2.getLanes(), player2.getRoles()));
+        assertEquals(positions, player2.getCombinedPositions());
     }
 }
