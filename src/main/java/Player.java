@@ -148,20 +148,38 @@ public class Player {
 
     // TODO
     public String getPreferredPosition() {
-
-
         return "";
     }
 
-    // TODO
-    public void filterOutPositions(ArrayList<String> positions) {
-        for(int i = 0; i < matchHistoryLength; i++) {
-            if(positions.get(i).equals("NONE")) {
+    public ArrayList<String> getFilteredPositions(ArrayList<String> positions) {
+        for(int i = 0; i < positions.size(); i++) {
+            if(positions.get(i).equals("NONE") || positions.get(i).equals("SOLO") || positions.get(i).equals("DUO")) {
                 positions.remove(i);
+                i--;
             }
         }
+
+        for(int i = 0; i < positions.size(); i++) {
+            if(positions.get(i).equals("DUO_SUPPORT")) {
+                positions.set(i, "SUPPORT");
+            }
+        }
+
+        return positions;
     }
 
+    public ArrayList<String> getCombinedPositions(ArrayList<String> lanes, ArrayList<String> roles) {
+        ArrayList<String> positions = new ArrayList<>();
+
+        for(int i = 0; i < matchHistoryLength; i++) {
+            positions.add(lanes.get(i));
+        }
+        for(int i = 0; i < matchHistoryLength; i++) {
+            positions.add(roles.get(i));
+        }
+
+        return positions;
+    }
 
     public ArrayList<String> getLanes() {
         ArrayList<String> lanes = new ArrayList<>();

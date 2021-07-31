@@ -24,18 +24,18 @@ public class PlayerTest {
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey("RGAPI-2e0acf2d-ebb6-4ae0-9568-2b261990dc20"); // must be blank API key before committing
-        summoner1 = Summoner.named("GeneralSn1per").withRegion(Region.NORTH_AMERICA).get();
+        Orianna.setRiotAPIKey(""); // must be blank API key before committing
+        //summoner1 = Summoner.named("GeneralSn1per").withRegion(Region.NORTH_AMERICA).get();
         summoner2 = Summoner.named("LeeWooJin").withRegion(Region.NORTH_AMERICA).get();
-        summoner3 = Summoner.named("jojopyun 16").withRegion(Region.NORTH_AMERICA).get();
-        summoner4 = Summoner.named("Tactical").withRegion(Region.NORTH_AMERICA).get();
-        summoner5 = Summoner.named("From Iron").withRegion(Region.NORTH_AMERICA).get();
+        //summoner3 = Summoner.named("jojopyun 16").withRegion(Region.NORTH_AMERICA).get();
+        //summoner4 = Summoner.named("Tactical").withRegion(Region.NORTH_AMERICA).get();
+        //summoner5 = Summoner.named("From Iron").withRegion(Region.NORTH_AMERICA).get();
         //summoner6 = Summoner.named("Woojin Lee").withRegion(Region.NORTH_AMERICA).get();
-        player1 = new Player(summoner1); // top laner datapoint
+        //player1 = new Player(summoner1); // top laner datapoint
         player2 = new Player(summoner2); // jungler datapoint
-        player3 = new Player(summoner3); // mid laner datapoint
-        player4 = new Player(summoner4); // adc datapoint
-        player5 = new Player(summoner5); // support datapoint
+        //player3 = new Player(summoner3); // mid laner datapoint
+        //player4 = new Player(summoner4); // adc datapoint
+        //player5 = new Player(summoner5); // support datapoint
         // player6 = new Player(summoner6); // unranked account test datapoint (8 ranked solo/duo queue games played)
     }
 
@@ -94,7 +94,11 @@ public class PlayerTest {
     @Test
     void testGetLanes() {
         ArrayList<String> lanes = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 3; i++) {
+            lanes.add("JUNGLE");
+        }
+        lanes.add("NONE");
+        for(int i = 0; i < 6; i++) {
             lanes.add("JUNGLE");
         }
 
@@ -104,10 +108,47 @@ public class PlayerTest {
     @Test
     void testGetRoles() {
         ArrayList<String> roles = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
-            roles.add("JUNGLE");
+        for(int i = 0; i < 3; i++) {
+            roles.add("NONE");
+        }
+        roles.add("DUO_SUPPORT");
+        for(int i = 0; i < 6; i++) {
+            roles.add("NONE");
         }
 
         assertEquals(roles, player2.getRoles());
+    }
+
+    @Test
+    void testFilterPositions() {
+        ArrayList<String> positions = new ArrayList<>();
+        for(int i = 0; i < 9; i++) {
+            positions.add("JUNGLE");
+        }
+        positions.add("SUPPORT");
+
+        assertEquals(positions, player2.getFilteredPositions(player2.getCombinedPositions(player2.getLanes(),
+                player2.getRoles())));
+    }
+
+    @Test
+    void testCombinePositions() {
+        ArrayList<String> positions = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            positions.add("JUNGLE");
+        }
+        positions.add("NONE");
+        for(int i = 0; i < 6; i++) {
+            positions.add("JUNGLE");
+        }
+        for(int i = 0; i < 3; i++) {
+            positions.add("NONE");
+        }
+        positions.add("DUO_SUPPORT");
+        for(int i = 0; i < 6; i++) {
+            positions.add("NONE");
+        }
+
+        assertEquals(positions, player2.getCombinedPositions(player2.getLanes(), player2.getRoles()));
     }
 }
