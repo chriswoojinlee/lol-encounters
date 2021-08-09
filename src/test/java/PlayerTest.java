@@ -18,7 +18,7 @@ public class PlayerTest {
         Orianna.setRiotAPIKey(""); // must be blank API key before committing
         summoner = Summoner.named("LeeWooJin").withRegion(Region.NORTH_AMERICA).get();
         user = new User(summoner);
-        player = new Player(user, summoner); // jungler datapoint
+        player = new Player(user, summoner);
     }
 
     @Test
