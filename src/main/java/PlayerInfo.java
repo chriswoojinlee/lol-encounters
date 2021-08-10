@@ -1,18 +1,13 @@
-public class PlayerInfo {
-    private final String name;
-    private final double winRate;
-    private final int numWins;
-    private final int numLosses;
-    private final String position;
+import com.merakianalytics.orianna.types.core.summoner.Summoner;
+
+import java.util.Objects;
+
+public class PlayerInfo extends Player {
     private String notes;
     private String reasons;
 
-    public PlayerInfo(Player player) {
-        this.name = player.getName();
-        this.winRate = player.getWinRate();
-        this.numWins = player.getWins();
-        this.numLosses = player.getLosses();
-        this.position = player.getPreferredPosition();
+    public PlayerInfo(Summoner summoner) {
+        super(summoner);
     }
 
     public void setNotes(String notes) {
@@ -31,24 +26,17 @@ public class PlayerInfo {
         return reasons;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayerInfo that = (PlayerInfo) o;
+        return Objects.equals(notes, that.notes) && Objects.equals(reasons, that.reasons);
     }
 
-    public double getWinRate() {
-        return winRate;
-    }
-
-    public int getNumWins() {
-        return numWins;
-    }
-
-    public int getNumLosses() {
-        return numLosses;
-    }
-
-    public String getPosition() {
-        return position;
+    @Override
+    public int hashCode() {
+        return Objects.hash(notes, reasons);
     }
 }
 

@@ -6,19 +6,32 @@ import java.util.Map;
 
 public class User {
     private final Player user;
-    private Blacklist blacklist;
+    private Map<String, PlayerInfo> blacklist;
 
     public User(String userName) {
         Summoner userSummoner = Summoner.named(userName).withRegion(Region.NORTH_AMERICA).get();
         this.user = new Player(userSummoner);
-        this.blacklist = new Blacklist(user);
+        this.blacklist = new HashMap<>();
     }
 
     public Player getUser() {
         return user;
     }
 
-    public Blacklist getBlacklist() {
+    public Map<String, PlayerInfo> getBlacklist() {
         return blacklist;
+    }
+
+    public void addToBlacklist(String playerName) {
+        Summoner summoner = Summoner.named(playerName).withRegion(Region.NORTH_AMERICA).get();
+        blacklist.put(playerName, new PlayerInfo(summoner));
+    }
+
+    public void removeFromBlacklist(String playerName) {
+        blacklist.remove(playerName);
+    }
+
+    public PlayerInfo getBlacklistedPlayerInfo(String playerName) {
+        return blacklist.get(playerName);
     }
 }
