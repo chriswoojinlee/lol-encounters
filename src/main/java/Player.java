@@ -1,4 +1,5 @@
 import com.merakianalytics.orianna.types.common.Queue;
+import com.merakianalytics.orianna.types.common.Region;
 import com.merakianalytics.orianna.types.common.Season;
 import com.merakianalytics.orianna.types.core.league.League;
 import com.merakianalytics.orianna.types.core.league.LeaguePositions;
@@ -18,8 +19,8 @@ public class Player {
     private final Summoner summoner;                // player's summoner datapoint
     private final League league;                    // player's current ranked solo/duo queue league
 
-    public Player(Summoner summoner) {
-        this.summoner = summoner;
+    public Player(String playerName) {
+        this.summoner = Summoner.named(playerName).withRegion(Region.NORTH_AMERICA).get();
         this.league = summoner.getLeague(Queue.RANKED_SOLO);
     }
 
@@ -82,11 +83,7 @@ public class Player {
             }
         }
 
-        if(winStreakCounter >= 2) {
-            hasWinStreak = true;
-        } else {
-            hasWinStreak = false;
-        }
+        hasWinStreak = winStreakCounter >= 2;
 
         return hasWinStreak;
     }
@@ -104,11 +101,7 @@ public class Player {
             }
         }
 
-        if(lossStreakCounter >= 2) {
-            hasLossStreak = true;
-        } else {
-            hasLossStreak = false;
-        }
+        hasLossStreak = lossStreakCounter >= 2;
 
         return hasLossStreak;
     }
@@ -141,8 +134,8 @@ public class Player {
         int supCounter = 0;
         Map<String, Integer> posMap = new HashMap<>();
 
-        for(int i = 0; i < positions.size(); i++) {
-            switch (positions.get(i)) {
+        for (String position : positions) {
+            switch (position) {
                 case "TOP":
                     topCounter++;
                     break;
@@ -192,7 +185,7 @@ public class Player {
         }
 
         for(int i = 0; i < positions.size(); i++) {
-            if(positions.get(i).equals("DUO_CARRY")) {
+            if(positions.get(i).equals("DUO_CARRY") || positions.get(i).equals("BOTTOM")) {
                 positions.set(i, "ADC");
             }
         }
@@ -250,9 +243,20 @@ public class Player {
     }
 
     public Match getMatch(int matchNum) {
-        Match match = summoner.matchHistory().withQueues(Queue.RANKED_SOLO).withSeasons(currentSeason).get().
-                get(matchNum);
 
-        return match;
+        return summoner.matchHistory().withQueues(Queue.RANKED_SOLO).withSeasons(currentSeason).get().get(matchNum);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(summoner, player.summoner) && Objects.equals(league, player.league);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(summoner, league);
     }
 }

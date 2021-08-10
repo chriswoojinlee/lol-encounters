@@ -1,11 +1,32 @@
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 // Represents current game lobby of all 5 players on same team including the user
 public class Lobby {
-    private Set<Player> players;  // summoners in the current lobby
+    private List<Player> players;  // players in the current lobby
+    private User user;             // user
 
-    // create a new lobby with all summoners loaded in and without criteria points calculated
-    public Lobby(Set<Player> players) {
+    // create a new lobby with all summoners loaded in
+    public Lobby(List<Player> players, User user) {
         this.players = players;
+        this.user = user;
     }
+
+    public List<Player> findBlacklistedPlayersInLobby() {
+        Map<String, PlayerInfo> blacklist = user.getBlacklist();
+        List<Player> blacklistedPlayersInLobby = new ArrayList<>();
+
+        for(int i = 0; i < 4; i++) {
+            if(blacklist.containsKey(players.get(i).getName())) {
+                blacklistedPlayersInLobby.add(players.get(i));
+            }
+        }
+
+        return blacklistedPlayersInLobby;
+    }
+
+//    public List<Player> findPreviouslyEncounteredPlayers() {
+//        return
+//    }
 }

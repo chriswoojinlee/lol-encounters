@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
-    Summoner summoner;
     Player player;
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey("RGAPI-99810730-272d-43e8-8a77-cc788ad835f1"); // must be blank API key before committing
-        summoner = Summoner.named("LeeWooJin").withRegion(Region.NORTH_AMERICA).get();
-        player = new Player(summoner);
+        Orianna.setRiotAPIKey("RGAPI-250b3e41-ff88-4a22-af9d-81a7f55a5bec"); // must be blank API key before committing
+        player = new Player("LeeWooJin");
     }
 
     @Test
@@ -63,5 +61,84 @@ public class PlayerTest {
     @Test
     void testGetPreferredPosition() {
         assertEquals("JUNGLE", player.getPreferredPosition());
+    }
+
+    @Test
+    void testGetLanes() {
+        ArrayList<String> lanes = new ArrayList<>();
+        lanes.add("JUNGLE");
+        lanes.add("BOTTOM");
+        for(int i = 0; i < 3; i++) {
+            lanes.add("JUNGLE");
+        }
+        for(int i = 0; i < 3; i++) {
+            lanes.add("NONE");
+        }
+        for(int i = 0; i < 2; i++) {
+            lanes.add("JUNGLE");
+        }
+
+        assertEquals(lanes, player.getLanes());
+    }
+
+    @Test
+    void testGetRoles() {
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("NONE");
+        roles.add("DUO_CARRY");
+        for(int i = 0; i < 3; i++) {
+            roles.add("NONE");
+        }
+        for(int i = 0; i < 3; i++) {
+            roles.add("DUO_SUPPORT");
+        }
+        for(int i = 0; i < 2; i++) {
+            roles.add("NONE");
+        }
+
+        assertEquals(roles, player.getRoles());
+    }
+
+    @Test
+    void testGetFilteredPositions() {
+        ArrayList<String> positions = new ArrayList<>();
+        positions.add("JUNGLE");
+        positions.add("ADC");
+        for(int i = 0; i < 5; i++) {
+            positions.add("JUNGLE");
+        }
+        positions.add("ADC");
+        for(int i = 0; i < 3; i++) {
+            positions.add("SUPPORT");
+        }
+
+        assertEquals(positions, player.getFilteredPositions(player.getCombinedPositions()));
+    }
+
+    @Test
+    void testGetCombinedPositions() {
+        ArrayList<String> positions = new ArrayList<>();
+        positions.add("JUNGLE");
+        positions.add("BOTTOM");
+        for(int i = 0; i < 3; i++) {
+            positions.add("JUNGLE");
+        }
+        for(int i = 0; i < 3; i++) {
+            positions.add("NONE");
+        }
+        positions.add("JUNGLE");
+        positions.add("JUNGLE");
+        positions.add("NONE");
+        positions.add("DUO_CARRY");
+        for(int i = 0; i < 3; i++) {
+            positions.add("NONE");
+        }
+        for(int i = 0; i < 3; i++) {
+            positions.add("DUO_SUPPORT");
+        }
+        positions.add("NONE");
+        positions.add("NONE");
+
+        assertEquals(positions, player.getCombinedPositions());
     }
 }
