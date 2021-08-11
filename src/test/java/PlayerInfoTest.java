@@ -8,12 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerInfoTest {
     private PlayerInfo playerInfo;
-    private Summoner summoner;
     private Player player;
 
     @BeforeEach
     public void setup() {
-        Orianna.setRiotAPIKey("RGAPI-250b3e41-ff88-4a22-af9d-81a7f55a5bec"); // must be blank API key before committing
+        Orianna.setRiotAPIKey(""); // must be blank API key before committing
         player = new Player("LeeWooJin");
         playerInfo = new PlayerInfo("LeeWooJin");
     }

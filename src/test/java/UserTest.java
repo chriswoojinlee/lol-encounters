@@ -1,6 +1,4 @@
 import com.merakianalytics.orianna.Orianna;
-import com.merakianalytics.orianna.types.common.Region;
-import com.merakianalytics.orianna.types.core.summoner.Summoner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +12,7 @@ public class UserTest {
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey("RGAPI-250b3e41-ff88-4a22-af9d-81a7f55a5bec"); // must be blank API key before committing
+        Orianna.setRiotAPIKey(""); // must be blank API key before committing
         user = new User("LeeWooJin");
     }
 
@@ -27,9 +25,6 @@ public class UserTest {
     @Test
     public void testGetBlacklist() {
         Map<String, PlayerInfo> testBlacklist = new HashMap<>();
-        Summoner summoner1 = Summoner.named("college board xd").withRegion(Region.NORTH_AMERICA).get();
-        Summoner summoner2 = Summoner.named("UofT UBC McGill").withRegion(Region.NORTH_AMERICA).get();
-        Summoner summoner3 = Summoner.named("DoinADoinBDoinZ").withRegion(Region.NORTH_AMERICA).get();
         testBlacklist.put("college board xd", new PlayerInfo("college board xd"));
         testBlacklist.put("UofT UBC McGill", new PlayerInfo("UofT UBC McGill"));
         testBlacklist.put("DoinADoinBDoinZ", new PlayerInfo("DoinADoinBDoinZ"));
@@ -45,7 +40,6 @@ public class UserTest {
 
     @Test
     public void testGetBlacklistedPlayerInfo() {
-        Summoner summoner = Summoner.named("college board xd").withRegion(Region.NORTH_AMERICA).get();
         PlayerInfo playerInfo = new PlayerInfo("college board xd");
 
         user.addToBlacklist("college board xd");
