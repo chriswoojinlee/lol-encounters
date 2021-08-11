@@ -4,8 +4,8 @@ import java.util.Map;
 
 // Represents current game lobby of all 5 players on same team including the user
 public class Lobby {
-    private List<Player> players;  // players in the current lobby
-    private User user;             // user
+    private final List<Player> players;  // players in the current lobby
+    private final User user;             // user
 
     // create a new lobby with all summoners loaded in
     public Lobby(List<Player> players, User user) {

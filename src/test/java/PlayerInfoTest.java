@@ -8,12 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerInfoTest {
     private PlayerInfo playerInfo;
-    private Player player;
 
     @BeforeEach
     public void setup() {
         Orianna.setRiotAPIKey(""); // must be blank API key before committing
-        player = new Player("LeeWooJin");
         playerInfo = new PlayerInfo("LeeWooJin");
     }
 

@@ -1,5 +1,3 @@
-import com.merakianalytics.orianna.types.core.summoner.Summoner;
-
 import java.util.Objects;
 
 public class PlayerInfo extends Player {

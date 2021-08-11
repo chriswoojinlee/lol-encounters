@@ -2,13 +2,9 @@ import com.merakianalytics.orianna.types.common.Queue;
 import com.merakianalytics.orianna.types.common.Region;
 import com.merakianalytics.orianna.types.common.Season;
 import com.merakianalytics.orianna.types.core.league.League;
-import com.merakianalytics.orianna.types.core.league.LeaguePositions;
 import com.merakianalytics.orianna.types.core.match.Match;
 import com.merakianalytics.orianna.types.core.match.MatchHistory;
-import com.merakianalytics.orianna.types.core.match.Participant;
 import com.merakianalytics.orianna.types.core.summoner.Summoner;
-import org.cache2k.core.Entry;
-
 import java.util.*;
 
 // Represents a player and his/her stats

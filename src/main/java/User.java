@@ -1,6 +1,3 @@
-import com.merakianalytics.orianna.types.common.Region;
-import com.merakianalytics.orianna.types.core.summoner.Summoner;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +14,6 @@ public class User extends Player {
     }
 
     public void addToBlacklist(String playerName) {
-        Summoner summoner = Summoner.named(playerName).withRegion(Region.NORTH_AMERICA).get();
         blacklist.put(playerName, new PlayerInfo(playerName));
     }
 
