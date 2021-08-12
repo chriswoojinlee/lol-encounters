@@ -1,9 +1,11 @@
 import com.merakianalytics.orianna.Orianna;
+import com.merakianalytics.orianna.types.core.match.Match;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,33 +19,56 @@ public class LobbyTest {
 
     @BeforeEach
     public void setup() {
-        List<Player> players = new ArrayList<>();
-
         Orianna.setRiotAPIKey(""); // must be blank API key before committing
         user = new User("LeeWooJin");
+    }
+
+    @Test
+    public void testFindBlacklistedPlayersInLobby() {
+        List<Player> players = new ArrayList<>();
+        List<Player> blacklistedPlayers = new ArrayList<>();
+
         player1 = new Player("college board xd");
         player2 = new Player("UofT UBC McGill");
         player3 = new Player("DoinADoinBDoinZ");
         player4 = new Player("Tactical");
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+        lobby = new Lobby(players, user);
 
+        blacklistedPlayers.add(new Player("UofT UBC McGill"));
+        blacklistedPlayers.add(new Player("Tactical"));
+        user.addToBlacklist("UofT UBC McGill");
+        user.addToBlacklist("Tactical");
+
+        assertEquals(blacklistedPlayers, lobby.findBlacklistedPlayersInLobby());
+    }
+
+    @Test
+    public void testFindPreviouslyEncounteredPlayers() {
+        List<Match> matches = new ArrayList<>();
+        List<Player> players = new ArrayList<>();
+
+        matches.add(user.getMatch(0));
+        matches.add(user.getMatch(1));
+        matches.add(user.getMatch(4));
+        matches.add(user.getMatch(5));
+        matches.add(user.getMatch(6));
+
+        player1 = new Player("Why am l Bad");
+        player2 = new Player("FirstTimeCaitlyn");
+        player3 = new Player("Doojeeboy");
+        player4 = new Player("Mavedon");
         players.add(player1);
         players.add(player2);
         players.add(player3);
         players.add(player4);
 
         lobby = new Lobby(players, user);
-    }
 
-    @Test
-    public void testFindBlacklistedPlayersInLobby() {
-        List<Player> blacklistedPlayers = new ArrayList<>();
-        blacklistedPlayers.add(new Player("UofT UBC McGill"));
-        blacklistedPlayers.add(new Player("Tactical"));
-
-        user.addToBlacklist("UofT UBC McGill");
-        user.addToBlacklist("Tactical");
-
-        assertEquals(blacklistedPlayers, lobby.findBlacklistedPlayersInLobby());
+        assertEquals(matches, lobby.findPreviouslyEncounteredPlayers());
     }
 
 

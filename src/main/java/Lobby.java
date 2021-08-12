@@ -1,3 +1,6 @@
+import com.merakianalytics.orianna.types.core.match.Match;
+import com.merakianalytics.orianna.types.core.match.Participant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +29,31 @@ public class Lobby {
         return blacklistedPlayersInLobby;
     }
 
-//    public List<Player> findPreviouslyEncounteredPlayers() {
-//        return
-//    }
+    public List<Match> findPreviouslyEncounteredPlayers() {
+        ArrayList<Match> matchesInCommon = new ArrayList<>();
+        String userName = user.getName();
+
+        for(int i = 0; i < user.getNumGames(); i++) {
+            Match match = user.getMatch(i);
+            for(int j = 0; j < 4; j++) {
+                if(matchHasPlayer(userName, match) && matchHasPlayer(players.get(j).getName(), match)) {
+                    matchesInCommon.add(match);
+                }
+            }
+        }
+
+        return matchesInCommon;
+    }
+
+    public boolean matchHasPlayer(String playerName, Match match) {
+        List<Participant> participants = match.getParticipants();
+
+        for(int i = 0; i < 10; i++) {
+            if(participants.get(i).getSummoner().getName().equals(playerName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
