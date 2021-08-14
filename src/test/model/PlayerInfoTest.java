@@ -1,6 +1,6 @@
+package model;
+
 import com.merakianalytics.orianna.Orianna;
-import com.merakianalytics.orianna.types.common.Region;
-import com.merakianalytics.orianna.types.core.summoner.Summoner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

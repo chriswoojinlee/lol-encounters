@@ -1,3 +1,5 @@
+package model;
+
 import com.merakianalytics.orianna.Orianna;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
