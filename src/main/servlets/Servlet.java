@@ -21,7 +21,7 @@ public class Servlet extends HttpServlet {
 
             request.setAttribute("error", error);
         } else {
-            Lobby lobby = new Lobby(players, userName);
+            //Lobby lobby = new Lobby(players, userName);
         }
 
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
