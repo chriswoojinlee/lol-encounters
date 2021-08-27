@@ -7,6 +7,42 @@
         <element id="directory" name="classes">
           <element id="module-output" name="lol-blacklist" />
         </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/orianna-4.0.0-rc8.jar" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="junit-jupiter-5.4.2" />
+          <element id="library" level="project" name="junit-jupiter-api-5.4.2" />
+          <element id="library" level="project" name="junit-jupiter-engine-5.4.2" />
+          <element id="library" level="project" name="junit-jupiter-params-5.4.2" />
+          <element id="library" level="project" name="junit-platform-commons-1.4.2" />
+          <element id="library" level="project" name="junit-platform-engine-1.4.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.0" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:20.0" />
+          <element id="library" level="project" name="Maven: com.merakianalytics.datapipelines:datapipelines:1.0.4" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.12.13" />
+          <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.15.0" />
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.0" />
+          <element id="library" level="project" name="Maven: es.usc.citius.hipster:hipster-core:1.0.1" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.1" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.10.1" />
+          <element id="library" level="project" name="Maven: maven:maven-war-plugin:1.6.3" />
+          <element id="library" level="project" name="Maven: org.apiguardian:apiguardian-api:1.0.0" />
+          <element id="library" level="project" name="Maven: org.cache2k:cache2k-api:1.2.3.Final" />
+          <element id="library" level="project" name="Maven: org.cache2k:cache2k-core:1.2.3.Final" />
+          <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-api:5.4.2" />
+          <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.4.2" />
+          <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-commons:1.4.2" />
+          <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-engine:1.4.2" />
+          <element id="library" level="project" name="Maven: org.msgpack:jackson-dataformat-msgpack:0.8.16" />
+          <element id="library" level="project" name="Maven: org.msgpack:msgpack-core:0.8.16" />
+          <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.1.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
+          <element id="library" level="project" name="opentest4j-1.1.1" />
+        </element>
+        <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
       </element>
     </root>
   </artifact>
