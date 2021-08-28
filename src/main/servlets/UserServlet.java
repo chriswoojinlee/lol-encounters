@@ -21,11 +21,12 @@ public class UserServlet extends HttpServlet {
         String wins;
         String losses;
         String winRate;
+        String tierIcon = "";
         Orianna.Configuration config = new Orianna.Configuration();
         Orianna.loadConfiguration(config);
         config.setDefaultPlatform(Platform.NORTH_AMERICA);
         Orianna.setDefaultLocale("en_US");
-        Orianna.setRiotAPIKey("RGAPI-10828af1-ef54-40a4-bf22-2022c5f6a329");
+        Orianna.setRiotAPIKey("RGAPI-83bdc8df-d6ae-452c-8f2c-1c0f6e952bdb");
         HttpSession session = request.getSession(false);
         String userIGN = request.getParameter("userIGN");
 
@@ -50,11 +51,41 @@ public class UserServlet extends HttpServlet {
             wins = " / " + user.getWins() + "W";
             losses = " " + user.getLosses() + "L";
             winRate = user.getWinRate() + "% Win Ratio";
+            switch(tier + " " + division) {
+                case "IRON IV": tierIcon = "//opgg-static.akamaized.net/images/medals/iron_4.png?image=q_auto:best&amp;v=1"; break;
+                case "IRON III": tierIcon = "//opgg-static.akamaized.net/images/medals/iron_3.png?image=q_auto:best&amp;v=1"; break;
+                case "IRON II": tierIcon = "//opgg-static.akamaized.net/images/medals/iron_2.png?image=q_auto:best&amp;v=1"; break;
+                case "IRON I": tierIcon = "//opgg-static.akamaized.net/images/medals/iron_1.png?image=q_auto:best&amp;v=1"; break;
+                case "BRONZE IV": tierIcon = "//opgg-static.akamaized.net/images/medals/bronze_4.png?image=q_auto:best&amp;v=1"; break;
+                case "BRONZE III": tierIcon = "//opgg-static.akamaized.net/images/medals/bronze_3.png?image=q_auto:best&amp;v=1"; break;
+                case "BRONZE II": tierIcon = "//opgg-static.akamaized.net/images/medals/bronze_2.png?image=q_auto:best&amp;v=1"; break;
+                case "BRONZE I": tierIcon = "//opgg-static.akamaized.net/images/medals/bronze_1.png?image=q_auto:best&amp;v=1"; break;
+                case "SILVER IV": tierIcon = "//opgg-static.akamaized.net/images/medals/silver_4.png?image=q_auto:best&amp;v=1"; break;
+                case "SILVER III": tierIcon = "//opgg-static.akamaized.net/images/medals/silver_3.png?image=q_auto:best&amp;v=1"; break;
+                case "SILVER II": tierIcon = "//opgg-static.akamaized.net/images/medals/silver_2.png?image=q_auto:best&amp;v=1"; break;
+                case "SILVER I": tierIcon = "//opgg-static.akamaized.net/images/medals/silver_1.png?image=q_auto:best&amp;v=1"; break;
+                case "GOLD IV": tierIcon = "//opgg-static.akamaized.net/images/medals/gold_4.png?image=q_auto:best&amp;v=1"; break;
+                case "GOLD III": tierIcon = "//opgg-static.akamaized.net/images/medals/gold_3.png?image=q_auto:best&amp;v=1"; break;
+                case "GOLD II": tierIcon = "//opgg-static.akamaized.net/images/medals/gold_2.png?image=q_auto:best&amp;v=1"; break;
+                case "GOLD I": tierIcon = "//opgg-static.akamaized.net/images/medals/gold_1.png?image=q_auto:best&amp;v=1"; break;
+                case "PLATINUM IV": tierIcon = "//opgg-static.akamaized.net/images/medals/platinum_4.png?image=q_auto:best&amp;v=1"; break;
+                case "PLATINUM III": tierIcon = "//opgg-static.akamaized.net/images/medals/platinum_3.png?image=q_auto:best&amp;v=1"; break;
+                case "PLATINUM II": tierIcon = "//opgg-static.akamaized.net/images/medals/platinum_2.png?image=q_auto:best&amp;v=1"; break;
+                case "PLATINUM I": tierIcon = "//opgg-static.akamaized.net/images/medals/platinum_1.png?image=q_auto:best&amp;v=1"; break;
+                case "DIAMOND IV": tierIcon = "//opgg-static.akamaized.net/images/medals/diamond_4.png?image=q_auto:best&amp;v=1"; break;
+                case "DIAMOND III": tierIcon = "//opgg-static.akamaized.net/images/medals/diamond_3.png?image=q_auto:best&amp;v=1"; break;
+                case "DIAMOND II": tierIcon = "//opgg-static.akamaized.net/images/medals/diamond_2.png?image=q_auto:best&amp;v=1"; break;
+                case "DIAMOND I": tierIcon = "//opgg-static.akamaized.net/images/medals/diamond_1.png?image=q_auto:best&amp;v=1"; break;
+                case "MASTER I": tierIcon = "//opgg-static.akamaized.net/images/medals/master_1.png?image=q_auto:best&amp;v=1"; break;
+                case "GRANDMASTER I": tierIcon = "//opgg-static.akamaized.net/images/medals/grandmaster_1.png?image=q_auto:best&amp;v=1"; break;
+                case "CHALLENGER I": tierIcon = "//opgg-static.akamaized.net/images/medals/challenger_1.png?image=q_auto:best&amp;v=1"; break;
+            }
         }
 
         session.setAttribute("error", error);
         session.setAttribute("profileIcon", profileIcon);
         session.setAttribute("level", level);
+        session.setAttribute("tierIcon", tierIcon);
         session.setAttribute("tier", tier);
         session.setAttribute("division", division);
         session.setAttribute("lp", lp);
