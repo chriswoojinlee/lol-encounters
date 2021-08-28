@@ -14,16 +14,19 @@ import javax.servlet.annotation.*;
 @WebServlet(name = "IndexServlet", urlPatterns = "/")
 public class IndexServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String error;
         String userIGN = request.getParameter("userIGN");
-        String registeredAccount = request.getParameter("registeredAccount");
         HttpSession session = request.getSession();
 
-        if ((userIGN == null || userIGN.isBlank()) && (registeredAccount == null || registeredAccount.isBlank())) {
-            String error = "No in-game username was provided. Please try again.";
-            session.setAttribute("error", error);
+        if ((userIGN == null || userIGN.isBlank())) {
+            error = "No in-game username was provided. Please try again.";
         } else {
+            error = "";
             session.setAttribute("userIGN", userIGN);
         }
+
+        session.setAttribute("error", error);
+        session.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {

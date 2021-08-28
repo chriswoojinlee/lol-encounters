@@ -30,6 +30,10 @@ public class Player {
         return summoner;
     }
 
+    public League getLeague() {
+        return league;
+    }
+
     public int getPlayerLeagueNum() {
         for(int i = 0; i < league.size(); i++) {
             if(league.get(i).getSummoner().getName().equals(summoner.getName())) {
