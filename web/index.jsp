@@ -23,7 +23,7 @@
         <h3 class="bg-red-300 text-red-900 font-semibold text-xl w-80 mx-auto">${error}</h3>
         <div>
             <form action="/user" method="post" id="form1">
-                <div class="grid grid-cols-2 gap-4 my-5 mx-8">
+                <div class="grid grid-cols-2 gap-4 my-5 mx-1">
                     <label for="userIGN" class="text-2x2 flex items-center">Enter an in-game username:</label>
                     <input id="userIGN" type="text" name="userIGN"
                            class="w-full p-1 border-2 placeholder-red-700 border-red-700 appearance-none"/>

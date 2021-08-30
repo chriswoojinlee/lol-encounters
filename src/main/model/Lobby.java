@@ -18,19 +18,6 @@ public class Lobby {
         this.user = user;
     }
 
-    public List<Player> findBlacklistedPlayersInLobby() {
-        Map<String, PlayerInfo> blacklist = user.getBlacklist();
-        List<Player> blacklistedPlayersInLobby = new ArrayList<>();
-
-        for(int i = 0; i < 4; i++) {
-            if(blacklist.containsKey(players.get(i).getName())) {
-                blacklistedPlayersInLobby.add(players.get(i));
-            }
-        }
-
-        return blacklistedPlayersInLobby;
-    }
-
     public List<Match> findPreviouslyEncounteredPlayers() {
         ArrayList<Match> matchesInCommon = new ArrayList<>();
         String userName = user.getName();

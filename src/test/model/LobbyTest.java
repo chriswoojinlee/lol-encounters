@@ -26,29 +26,6 @@ public class LobbyTest {
     }
 
     @Test
-    public void testFindBlacklistedPlayersInLobby() {
-        List<Player> players = new ArrayList<>();
-        List<Player> blacklistedPlayers = new ArrayList<>();
-
-        player1 = new Player("college board xd");
-        player2 = new Player("UofT UBC McGill");
-        player3 = new Player("DoinADoinBDoinZ");
-        player4 = new Player("Tactical");
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-        players.add(player4);
-        lobby = new Lobby(players, user);
-
-        blacklistedPlayers.add(new Player("UofT UBC McGill"));
-        blacklistedPlayers.add(new Player("Tactical"));
-        user.addToBlacklist("UofT UBC McGill");
-        user.addToBlacklist("Tactical");
-
-        assertEquals(blacklistedPlayers, lobby.findBlacklistedPlayersInLobby());
-    }
-
-    @Test
     public void testFindPreviouslyEncounteredPlayers() {
         List<Match> matches = new ArrayList<>();
         List<Player> players = new ArrayList<>();

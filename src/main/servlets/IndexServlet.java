@@ -1,11 +1,5 @@
 package servlets;
 
-import com.merakianalytics.orianna.Orianna;
-import com.merakianalytics.orianna.types.common.Platform;
-import com.merakianalytics.orianna.types.common.Region;
-import com.merakianalytics.orianna.types.core.summoner.Summoner;
-import model.Player;
-
 import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -27,9 +21,5 @@ public class IndexServlet extends HttpServlet {
 
         session.setAttribute("error", error);
         session.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
-
     }
 }

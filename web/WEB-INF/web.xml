@@ -14,11 +14,6 @@
         <servlet-class>servlets.UserServlet</servlet-class>
     </servlet>
 
-    <servlet>
-        <servlet-name>BlacklistServlet</servlet-name>
-        <servlet-class>servlets.BlacklistServlet</servlet-class>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/</url-pattern>
@@ -27,10 +22,5 @@
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/user</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>BlacklistServlet</servlet-name>
-        <url-pattern>/blacklist</url-pattern>
     </servlet-mapping>
 </web-app>

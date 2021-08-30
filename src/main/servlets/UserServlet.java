@@ -22,6 +22,7 @@ public class UserServlet extends HttpServlet {
         String losses;
         String winRate;
         String tierIcon = "";
+        User user;
         Orianna.Configuration config = new Orianna.Configuration();
         Orianna.loadConfiguration(config);
         config.setDefaultPlatform(Platform.NORTH_AMERICA);
@@ -32,6 +33,7 @@ public class UserServlet extends HttpServlet {
 
         if(new User(userIGN).getLeague() == null) {
             error = "Account is unranked. Please try again.";
+            user = null;
             profileIcon = "";
             level = "";
             tier = "";
@@ -42,7 +44,7 @@ public class UserServlet extends HttpServlet {
             winRate = "";
         } else {
             error = "";
-            User user = new User(userIGN);
+            user = new User(userIGN);
             profileIcon = user.getSummoner().getProfileIcon().getImage().getURL();
             level = "Level " + user.getSummoner().getLevel();
             tier = user.getCurrentTier();
@@ -82,6 +84,8 @@ public class UserServlet extends HttpServlet {
             }
         }
 
+        session.setAttribute("user", user);
+        session.setAttribute("userIGN", userIGN);
         session.setAttribute("error", error);
         session.setAttribute("profileIcon", profileIcon);
         session.setAttribute("level", level);
@@ -92,11 +96,6 @@ public class UserServlet extends HttpServlet {
         session.setAttribute("wins", wins);
         session.setAttribute("losses", losses);
         session.setAttribute("winRate", winRate);
-
         session.getServletContext().getRequestDispatcher("/user.jsp").forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
-
     }
 }
