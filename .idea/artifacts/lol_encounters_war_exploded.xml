@@ -2,7 +2,6 @@
   <artifact type="exploded-war" name="lol-encounters:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/lol_encounters_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="lol-blacklist/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="lol-encounters" />
@@ -20,7 +19,6 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.0" />
-          <element id="library" level="project" name="Maven: com.google.guava:guava:20.0" />
           <element id="library" level="project" name="Maven: com.merakianalytics.datapipelines:datapipelines:1.0.4" />
           <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.12.13" />
           <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.15.0" />
@@ -41,9 +39,11 @@
           <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.1.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="opentest4j-1.1.1" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:30.1.1-jre" />
         </element>
         <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
       </element>
+      <element id="javaee-facet-resources" facet="lol-encounters/web/Web" />
     </root>
   </artifact>
 </component>

@@ -22,9 +22,4 @@ public class IndexServlet extends HttpServlet {
         session.setAttribute("error", error);
         session.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-    }
 }
