@@ -14,6 +14,11 @@
         <servlet-class>servlets.UserServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>LobbyServlet</servlet-name>
+        <servlet-class>servlets.LobbyServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/</url-pattern>
@@ -22,5 +27,10 @@
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LobbyServlet</servlet-name>
+        <url-pattern>/lobby</url-pattern>
     </servlet-mapping>
 </web-app>

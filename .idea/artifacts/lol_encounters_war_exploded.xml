@@ -1,11 +1,11 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="lol-blacklist:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/lol_blacklist_war_exploded</output-path>
+  <artifact type="exploded-war" name="lol-encounters:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/lol_encounters_war_exploded</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="lol-blacklist/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="lol-blacklist" />
+          <element id="module-output" name="lol-encounters" />
         </element>
         <element id="directory" name="lib">
           <element id="file-copy" path="$PROJECT_DIR$/orianna-4.0.0-rc8.jar" />

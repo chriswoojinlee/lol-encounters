@@ -12,13 +12,14 @@
 </head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <body class="bg-gray-900 bg-auto">
 <div>
     <div class="font-serif bg-white mx-auto py-4 my-80 max-w-2xl">
         <h2 class="text-4xl font-bold border-b pb-2 mx-6">${param.userIGN}</h2>
         <h3 class="bg-red-300 text-red-900 font-semibold text-xl w-80 rounded-lg my-2 mx-auto √"><%=session.getAttribute("error")%>
         </h3>
-        <div style="border: 1px solid;" class="red-700">
+        <div style="border: 1px solid;">
             <div style="display:inline-block;vertical-align:top;">
                 <img src="<%=session.getAttribute("profileIcon")%>" alt="" style="width:100px;height:100px;">
                 <p class="mx-4">
@@ -31,7 +32,7 @@
                 </p>
 
                 <p>
-                    <div style="display: inline-block;" class="font-extrabold text-red-700 text-2xl">
+                    <div style="display: inline-block;" class="font-extrabold text-blue-700 text-2xl">
                         <%=session.getAttribute("tier")%> <%=session.getAttribute("division")%>
                     </div>
                     <div style="display: inline-block;">
@@ -51,12 +52,12 @@
         </div>
         <div style="vertical-align:top;display:inline-block;" class="grid grid-flow-col grid-cols-3 gap-4">
             <div></div>
-            <form method="post" action="/blacklist">
+            <form method="post" action="/lobby">
                 <div class="my-5 mx-3">
-                    <label for="lobby" class="text-x1 flex items-center">Copy and paste lobby:</label>
-                    <input id="lobby"
-                           class="w-full p-1 border-2 border-red-700 appearance-none"
-                           name="lobby" value="${param.lobby}"/>
+                    <label for="lobbyText" class="text-x1 flex items-center">Copy and paste lobby:</label>
+                    <input id="lobbyText"
+                           class="w-full p-1 border-2 border-blue-700 appearance-none"
+                           name="lobbyText"/>
                 </div>
             </form>
             <div></div>

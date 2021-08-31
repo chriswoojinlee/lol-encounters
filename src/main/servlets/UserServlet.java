@@ -21,19 +21,19 @@ public class UserServlet extends HttpServlet {
         String wins;
         String losses;
         String winRate;
-        String tierIcon = "";
         User user;
+        String lobbyText;
+        String tierIcon = "";
         Orianna.Configuration config = new Orianna.Configuration();
         Orianna.loadConfiguration(config);
         config.setDefaultPlatform(Platform.NORTH_AMERICA);
         Orianna.setDefaultLocale("en_US");
-        Orianna.setRiotAPIKey("RGAPI-83bdc8df-d6ae-452c-8f2c-1c0f6e952bdb");
+        Orianna.setRiotAPIKey("RGAPI-9cf02e96-0ea2-4606-9c0b-0cb79be20ffb");
         HttpSession session = request.getSession(false);
         String userIGN = request.getParameter("userIGN");
 
         if(new User(userIGN).getLeague() == null) {
             error = "Account is unranked. Please try again.";
-            user = null;
             profileIcon = "";
             level = "";
             tier = "";
@@ -42,6 +42,7 @@ public class UserServlet extends HttpServlet {
             wins = "";
             losses = "";
             winRate = "";
+            lobbyText = "";
         } else {
             error = "";
             user = new User(userIGN);
@@ -82,9 +83,10 @@ public class UserServlet extends HttpServlet {
                 case "GRANDMASTER I": tierIcon = "//opgg-static.akamaized.net/images/medals/grandmaster_1.png?image=q_auto:best&amp;v=1"; break;
                 case "CHALLENGER I": tierIcon = "//opgg-static.akamaized.net/images/medals/challenger_1.png?image=q_auto:best&amp;v=1"; break;
             }
+
+            lobbyText = request.getParameter("lobbyText");
         }
 
-        session.setAttribute("user", user);
         session.setAttribute("userIGN", userIGN);
         session.setAttribute("error", error);
         session.setAttribute("profileIcon", profileIcon);
@@ -96,6 +98,7 @@ public class UserServlet extends HttpServlet {
         session.setAttribute("wins", wins);
         session.setAttribute("losses", losses);
         session.setAttribute("winRate", winRate);
+        session.setAttribute("lobbyText", lobbyText);
         session.getServletContext().getRequestDispatcher("/user.jsp").forward(request, response);
     }
 }

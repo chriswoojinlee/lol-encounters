@@ -18,7 +18,7 @@ public class Lobby {
         this.user = user;
     }
 
-    public List<Match> findPreviouslyEncounteredPlayers() {
+    public List<Match> findPreviouslySharedMatches() {
         ArrayList<Match> matchesInCommon = new ArrayList<>();
         String userName = user.getName();
 
@@ -44,5 +44,19 @@ public class Lobby {
         }
 
         return false;
+    }
+
+    public List<Match> findPreviouslySharedMatches(String playerName) {
+        ArrayList<Match> matches = new ArrayList<>();
+        String userName = user.getName();
+
+        for(int i = 0; i < user.getNumGames(); i++) {
+            Match match = user.getMatch(i);
+            if(matchHasPlayer(userName, match) && matchHasPlayer(playerName, match)) {
+                matches.add(match);
+            }
+        }
+
+        return matches;
     }
 }
