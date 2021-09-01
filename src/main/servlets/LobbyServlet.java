@@ -22,6 +22,7 @@ import java.util.List;
 @WebServlet(name = "LobbyServlet", urlPatterns = "/lobby")
 public class LobbyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<String> playerNames = new ArrayList<>();
         List<String> profileIcons = new ArrayList<>();
         List<String> levels = new ArrayList<>();
         List<String> tiers = new ArrayList<>();
@@ -31,7 +32,7 @@ public class LobbyServlet extends HttpServlet {
         List<String> losses = new ArrayList<>();
         List<String> winRates = new ArrayList<>();
         List<String> tierIcons = new ArrayList<>();
-        List<String> numTimesEncountered = new ArrayList<>();
+        List<String> numEncounters = new ArrayList<>();
         Orianna.Configuration config = new Orianna.Configuration();
         Orianna.loadConfiguration(config);
         config.setDefaultPlatform(Platform.NORTH_AMERICA);
@@ -41,21 +42,23 @@ public class LobbyServlet extends HttpServlet {
         String userIGN = session.getAttribute("userIGN").toString();
         User user = new User(userIGN);
         PlayersParser playersParser = new PlayersParser(request.getParameter("lobbyText"), userIGN);
-        playersParser.setPlayerNames();
         List<Player> players = playersParser.getPlayers();
         Lobby lobby = new Lobby(players, user);
         for(Player p : players) {
             if(p != null) {
                 Summoner playerSummoner = p.getSummoner();
+                String tier = p.getCurrentTier();
+                String division = p.getCurrentDivision();
+                playerNames.add(playerSummoner.getName());
                 profileIcons.add(playerSummoner.getProfileIcon().getImage().getURL());
                 levels.add("Level " + playerSummoner.getLevel());
-                tiers.add(p.getCurrentTier());
-                divisions.add(p.getCurrentDivision());
+                tiers.add(tier);
+                divisions.add(division);
                 lp.add(p.getCurrentLP() + " LP");
                 wins.add(p.getWins() + "W");
                 losses.add(p.getLosses() + "L");
                 winRates.add(p.getWinRate() + "% Win Ratio");
-                switch(p.getCurrentTier() + " " + p.getCurrentDivision()) {
+                switch(tier + " " + division) {
                     case "IRON IV": tierIcons.add("//opgg-static.akamaized.net/images/medals/iron_4.png?image=q_auto:best&amp;v=1"); break;
                     case "IRON III": tierIcons.add("//opgg-static.akamaized.net/images/medals/iron_3.png?image=q_auto:best&amp;v=1"); break;
                     case "IRON II": tierIcons.add("//opgg-static.akamaized.net/images/medals/iron_2.png?image=q_auto:best&amp;v=1"); break;
@@ -91,9 +94,10 @@ public class LobbyServlet extends HttpServlet {
                     count++;
                 }
 
-                numTimesEncountered.add(String.valueOf(count));
+                numEncounters.add(String.valueOf(count));
 
             } else {
+                playerNames.add("");
                 profileIcons.add("");
                 levels.add("");
                 tiers.add("");
@@ -103,22 +107,54 @@ public class LobbyServlet extends HttpServlet {
                 losses.add("");
                 winRates.add("");
                 tierIcons.add("");
-                numTimesEncountered.add("");
+                numEncounters.add("");
             }
         }
 
-        session.setAttribute("p1profileIcon", profileIcons.get(0));
-        session.setAttribute("profileIcons", profileIcons);
-        session.setAttribute("levels", levels);
-        session.setAttribute("p1level", levels.get(0));
-        session.setAttribute("tierIcons", tierIcons);
-        session.setAttribute("tiers", tiers);
-        session.setAttribute("divisions", divisions);
-        session.setAttribute("lp", lp);
-        session.setAttribute("wins", wins);
-        session.setAttribute("losses", losses);
-        session.setAttribute("winRates", winRates);
-        session.setAttribute("numTimesEncountered", numTimesEncountered);
+        session.setAttribute("p1PlayerName", playerNames.get(0));
+        session.setAttribute("p2PlayerName", playerNames.get(1));
+        session.setAttribute("p3PlayerName", playerNames.get(2));
+        session.setAttribute("p4PlayerName", playerNames.get(3));
+        session.setAttribute("p1ProfileIcon", profileIcons.get(0));
+        session.setAttribute("p2ProfileIcon", profileIcons.get(1));
+        session.setAttribute("p3ProfileIcon", profileIcons.get(2));
+        session.setAttribute("p4ProfileIcon", profileIcons.get(3));
+        session.setAttribute("p1Level", levels.get(0));
+        session.setAttribute("p2Level", levels.get(1));
+        session.setAttribute("p3Level", levels.get(2));
+        session.setAttribute("p4Level", levels.get(3));
+        session.setAttribute("p1TierIcon", tierIcons.get(0));
+        session.setAttribute("p2TierIcon", tierIcons.get(1));
+        session.setAttribute("p3TierIcon", tierIcons.get(2));
+        session.setAttribute("p4TierIcon", tierIcons.get(3));
+        session.setAttribute("p1Tier", tiers.get(0));
+        session.setAttribute("p2Tier", tiers.get(1));
+        session.setAttribute("p3Tier", tiers.get(2));
+        session.setAttribute("p4Tier", tiers.get(3));
+        session.setAttribute("p1Division", divisions.get(0));
+        session.setAttribute("p2Division", divisions.get(1));
+        session.setAttribute("p3Division", divisions.get(2));
+        session.setAttribute("p4Division", divisions.get(3));
+        session.setAttribute("p1LP", lp.get(0));
+        session.setAttribute("p2LP", lp.get(1));
+        session.setAttribute("p3LP", lp.get(2));
+        session.setAttribute("p4LP", lp.get(3));
+        session.setAttribute("p1Wins", wins.get(0));
+        session.setAttribute("p2Wins", wins.get(1));
+        session.setAttribute("p3Wins", wins.get(2));
+        session.setAttribute("p4Wins", wins.get(3));
+        session.setAttribute("p1Losses", losses.get(0));
+        session.setAttribute("p2Losses", losses.get(1));
+        session.setAttribute("p3Losses", losses.get(2));
+        session.setAttribute("p4Losses", losses.get(3));
+        session.setAttribute("p1WinRate", winRates.get(0));
+        session.setAttribute("p2WinRate", winRates.get(1));
+        session.setAttribute("p3WinRate", winRates.get(2));
+        session.setAttribute("p4WinRate", winRates.get(3));
+        session.setAttribute("p1NumEncounters", numEncounters.get(0));
+        session.setAttribute("p2NumEncounters", numEncounters.get(1));
+        session.setAttribute("p3NumEncounters", numEncounters.get(2));
+        session.setAttribute("p4NumEncounters", numEncounters.get(3));
         session.getServletContext().getRequestDispatcher("/lobby.jsp").forward(request, response);
     }
 }

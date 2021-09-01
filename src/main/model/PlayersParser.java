@@ -14,12 +14,23 @@ public class PlayersParser {
         this.userName = userName;
     }
 
-    public List<String> getPlayerNames() {
-        return playerNames;
+    public List<Player> getPlayers() {
+        setPlayerNames();
+        List<Player> players = new ArrayList<>();
+
+        for(String name : playerNames) {
+            if(new Player(name) != null) {
+                players.add(new Player(name));
+            }
+        }
+
+        return players;
     }
 
-    public String filterLobbyText() {
-        return lobbyText.replaceAll(" joined the lobby", "");
+    public void setPlayerNames() {
+        ArrayList<String> names = new ArrayList<>(Arrays.asList(filterLobbyText().split(System.getProperty("line.separator"))));
+
+        playerNames = filterOutUser(names);
     }
 
     public List<String> filterOutUser(ArrayList<String> names) {
@@ -32,19 +43,7 @@ public class PlayersParser {
         return names;
     }
 
-    public void setPlayerNames() {
-        ArrayList<String> names = new ArrayList<>(Arrays.asList(filterLobbyText().split(System.getProperty("line.separator"))));
-
-        playerNames = filterOutUser(names);
-    }
-
-    public List<Player> getPlayers() {
-        List<Player> players = new ArrayList<>();
-
-        for(String name : playerNames) {
-            players.add(new Player(name));
-        }
-
-        return players;
+    public String filterLobbyText() {
+        return lobbyText.replaceAll(" joined the lobby", "\n");
     }
 }
