@@ -15,14 +15,6 @@ public class PlayersParserTest {
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey("RGAPI-9cf02e96-0ea2-4606-9c0b-0cb79be20ffb"); // must be blank API key before committing
-
-//        playersParser = new PlayersParser("LeeWooJin joined the lobby\n" +
-//                "college board xd joined the lobby\n" +
-//                "UofT UBC McGill joined the lobby\n" +
-//                "DoinADoinBDoinZ joined the lobby\n" +
-//                "demoliser joined the lobby", "LeeWooJin");
-
         playersParser = new PlayersParser("LeeWooJin joined the lobby" + "college board xd joined the lobby"
                 + "UofT UBC McGill joined the lobby" + "DoinADoinBDoinZ joined the lobby" +
                 "demoliser joined the lobby", "LeeWooJin");

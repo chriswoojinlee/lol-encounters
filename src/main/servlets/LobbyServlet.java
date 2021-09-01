@@ -37,7 +37,6 @@ public class LobbyServlet extends HttpServlet {
         Orianna.loadConfiguration(config);
         config.setDefaultPlatform(Platform.NORTH_AMERICA);
         Orianna.setDefaultLocale("en_US");
-        Orianna.setRiotAPIKey("RGAPI-9cf02e96-0ea2-4606-9c0b-0cb79be20ffb");
         HttpSession session = request.getSession(false);
         String userIGN = session.getAttribute("userIGN").toString();
         User user = new User(userIGN);

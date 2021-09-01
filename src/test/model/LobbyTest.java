@@ -1,6 +1,7 @@
 package model;
 
 import com.merakianalytics.orianna.Orianna;
+import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.core.match.Match;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class LobbyTest {
 
     @BeforeEach
     public void setup() {
-        Orianna.setRiotAPIKey(""); // must be blank API key before committing
+        Orianna.setRiotAPIKey("");
         user = new User("LeeWooJin");
     }
 
