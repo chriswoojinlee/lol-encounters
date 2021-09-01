@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="lol-encounters:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/lol_encounters_war</output-path>
+    <root id="archive" name="lol-encounters_war.war">
+      <element id="artifact" artifact-name="lol-encounters:war exploded" />
+    </root>
+  </artifact>
+</component>
