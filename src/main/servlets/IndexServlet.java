@@ -12,7 +12,7 @@ public class IndexServlet extends HttpServlet {
         String userIGN = request.getParameter("userIGN");
         HttpSession session = request.getSession();
 
-        if ((userIGN == null || userIGN.isBlank())) {
+        if ((userIGN == null)) {
             error = "No in-game username was provided. Please try again.";
         } else {
             error = "";

@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>
-        League of Legends Stats
+        League of Legends Encounters
     </title>
     <style>
         html, body {
