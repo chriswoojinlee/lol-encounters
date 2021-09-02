@@ -11,10 +11,13 @@
             height: 100%;
         }
     </style>
+
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
 </head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<p id="index"></p>
 
 <body class="bg-gray-900 bg-auto">
 <div>

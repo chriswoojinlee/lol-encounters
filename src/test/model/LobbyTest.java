@@ -1,7 +1,5 @@
 package model;
 
-import com.merakianalytics.orianna.Orianna;
-import com.merakianalytics.orianna.types.common.Platform;
 import com.merakianalytics.orianna.types.core.match.Match;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,33 +19,30 @@ public class LobbyTest {
 
     @BeforeEach
     public void setup() {
-        Orianna.setRiotAPIKey("");
         user = new User("LeeWooJin");
     }
 
     @Test
-    public void testFindPreviouslyEncounteredPlayers() {
+    public void testFindPreviouslySharedMatches() {
         List<Match> matches = new ArrayList<>();
         List<Player> players = new ArrayList<>();
+        player1 = new Player("Nicht Nichts");
+        player2 = new Player("jungle player");
+        player3 = new Player("OPEN BOT");
+        player4 = new Player("Native Turtle");
 
-        matches.add(user.getMatch(0));
-        matches.add(user.getMatch(1));
-        matches.add(user.getMatch(4));
-        matches.add(user.getMatch(5));
-        matches.add(user.getMatch(6));
-
-        player1 = new Player("Why am l Bad");
-        player2 = new Player("FirstTimeCaitlyn");
-        player3 = new Player("Doojeeboy");
-        player4 = new Player("Mavedon");
         players.add(player1);
         players.add(player2);
         players.add(player3);
         players.add(player4);
+        matches.add(user.getMatch(0));
 
-        lobby = new Lobby(players, user);
+        lobby = new Lobby(user);
 
-        assertEquals(matches, lobby.findPreviouslySharedMatches());
+        assertEquals(matches, lobby.findPreviouslySharedMatches("Nicht Nichts"));
+        assertEquals(matches, lobby.findPreviouslySharedMatches("jungle player"));
+        assertEquals(matches, lobby.findPreviouslySharedMatches("OPEN BOT"));
+        assertEquals(matches, lobby.findPreviouslySharedMatches("Native Turtle"));
     }
 
 

@@ -1,2 +1,6 @@
 Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: chrislee
+Build-Jdk: 1.8.0_275
+Automatic-Module-Name: com.merakianalytics.orianna
 

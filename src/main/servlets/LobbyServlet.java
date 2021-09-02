@@ -42,7 +42,7 @@ public class LobbyServlet extends HttpServlet {
         User user = new User(userIGN);
         PlayersParser playersParser = new PlayersParser(request.getParameter("lobbyText"), userIGN);
         List<Player> players = playersParser.getPlayers();
-        Lobby lobby = new Lobby(players, user);
+        Lobby lobby = new Lobby(user);
         for(Player p : players) {
             if(p != null) {
                 Summoner playerSummoner = p.getSummoner();

@@ -13,7 +13,6 @@ public class PlayerTest {
 
     @BeforeEach
     void setup() {
-        Orianna.setRiotAPIKey(""); // must be blank API key before committing
         player = new Player("LeeWooJin");
     }
 

@@ -1,5 +1,7 @@
 package servlets;
 
+import model.User;
+
 import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -12,7 +14,7 @@ public class IndexServlet extends HttpServlet {
         String userIGN = request.getParameter("userIGN");
         HttpSession session = request.getSession();
 
-        if ((userIGN == null)) {
+        if ((userIGN == null) || userIGN == "" || new User(userIGN).getNumGames() < 10) {
             error = "No in-game username was provided. Please try again.";
         } else {
             error = "";

@@ -14,8 +14,8 @@ public class Player {
     private static final Season currentSeason = Season.getLatest();
     private static final int matchHistoryLength = 10;
 
-    private final Summoner summoner;                // player's summoner datapoint
-    private final League league;                    // player's current ranked solo/duo queue league
+    private final Summoner summoner; // player's summoner datapoint
+    private final League league;     // player's current ranked solo/duo queue league
 
     public Player(String playerName) {
         this.summoner = Summoner.named(playerName).withRegion(Region.NORTH_AMERICA).get();
@@ -34,6 +34,7 @@ public class Player {
         return league;
     }
 
+    // find the number position that a player is in his/her league
     public int getPlayerLeagueNum() {
         for(int i = 0; i < league.size(); i++) {
             if(league.get(i).getSummoner().getName().equals(summoner.getName())) {

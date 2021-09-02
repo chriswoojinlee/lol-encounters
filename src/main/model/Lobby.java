@@ -2,38 +2,42 @@ package model;
 
 import com.merakianalytics.orianna.types.core.match.Match;
 import com.merakianalytics.orianna.types.core.match.Participant;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 // Represents current game lobby of all 5 players on same team including the user
 public class Lobby {
-    private final List<Player> players;  // players in the current lobby
-    private final User user;             // user
+    private final User user;
 
     // create a new lobby with all summoners loaded in
-    public Lobby(List<Player> players, User user) {
-        this.players = players;
+    public Lobby(User user) {
         this.user = user;
     }
 
-    public List<Match> findPreviouslySharedMatches() {
-        ArrayList<Match> matchesInCommon = new ArrayList<>();
+    // find any shared matches between the user and a given player
+    public List<Match> findPreviouslySharedMatches(String playerName) {
+        ArrayList<Match> matches = new ArrayList<>();
         String userName = user.getName();
+        int matchHistoryLength;
 
-        for(int i = 0; i < user.getNumGames(); i++) {
+        if(user.getNumGames() > 20) {
+            matchHistoryLength = 20;
+        } else {
+            matchHistoryLength = user.getNumGames();
+        }
+
+        for(int i = 0; i < matchHistoryLength; i++) {
             Match match = user.getMatch(i);
-            for(int j = 0; j < 4; j++) {
-                if(matchHasPlayer(userName, match) && matchHasPlayer(players.get(j).getName(), match)) {
-                    matchesInCommon.add(match);
-                }
+
+            if(matchHasPlayer(userName, match) && matchHasPlayer(playerName, match)) {
+                matches.add(match);
             }
         }
 
-        return matchesInCommon;
+        return matches;
     }
 
+    // given a single match, check if a player has played in it
     public boolean matchHasPlayer(String playerName, Match match) {
         List<Participant> participants = match.getParticipants();
 
@@ -44,19 +48,5 @@ public class Lobby {
         }
 
         return false;
-    }
-
-    public List<Match> findPreviouslySharedMatches(String playerName) {
-        ArrayList<Match> matches = new ArrayList<>();
-        String userName = user.getName();
-
-        for(int i = 0; i < user.getNumGames(); i++) {
-            Match match = user.getMatch(i);
-            if(matchHasPlayer(userName, match) && matchHasPlayer(playerName, match)) {
-                matches.add(match);
-            }
-        }
-
-        return matches;
     }
 }
